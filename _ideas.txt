@@ -1,0 +1,70 @@
+In general I'm leaning more towards a tile based game. Really like the idea of doing something similar to the Halls of Oszmot. Maybe an RPG, maybe a strategy game.
+
+Theme: Running out of space
+
+2. You are the compression controller on a harddrive, have to figure out what files to compress and decompress. Users will request files and you have to give it to them. You have a limited amount of space to unzip files to be able to serve them and they have to be unzipped the entire time. Make it look like Uplink.
+The basic view is a grid representing the storage area of the harddrive. Start out with a bunch of zipped files. Can mouse over to see what's in them (appearing on the right). On the left Users log into the system and request files. There's a countdown specifying how long they're willing to wait. If they give up you get a strike against you. Three strikes and you fail. The user will grab the file as soon as it's available. They'll then spend some time working on it. If you compress a file while it's being worked on you get a strike and the user gives up the file.
+To uncompress you click on a file and choose Uncompress. This takes a while. Files are gradually removed from the compressed file and put into main memory.
+To compress you select a number of files and then hit the Compress button. You can optionally give the file a name, otherwise it's given a random name like Archive3240985.
+Compressing will reduce file size by about 50%, for more in depth strategy have different kinds of files that compress differently depending on which types of files they're compressed with.
+Have files change size after use.
+Have different types of users with unique user names. Have one that always requests the same few files. Have one that requests a few different files. Have one that requests random files. Have one that requests specific file types. Could also include hackers who you don't want to give access to files.
+File types:
+.img - green
+.txt - cyan
+.db - blue
+.ui - orange
+.c - purple
+.dat - yellow
+.elf - red
+.arc - white
+
+Files:
+Type, Name, Size (in half blocks), Contained Files, Min Size, Max Size, IsCompressed
+
+
+Users:
+Random - Wants random files.
+Hacker - Wants random files. Have distinct names. Don't want to give access to the files they want.
+Specific - Usually wants a specific type of file.
+Pattern - Requests the same files in a specific order.
+They also have how long they generally use files, chance of increasing or decreasing size.
+
+
+
+Dystopian future, you've had yourself hooked up to a computer to allow Alon Analytics make use of your brain for their storage compression controller. You have to get people what they want in time otherwise you're docked pay, and if you can't pay you starve.
+Have to make it a work week (5 days).
+
+
+
+User
+FileRequest
+File
+Storage
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+9. Similar to 4, except it's a top down tile based movement game. You have to make your way through various obstacles and the floor decays each time you step on it. Eventually you're unable to make it in time (have a timer to put pressure on and give a definite loss condition) and your score is how many times you made it to each side.
+Can have things like fireballs, wall saws, and spear traps you all have to avoid. Instead of a timer make it so that the tiles that decay do so while you step on them and every N seconds while you're standing on them. If the tile decays while you're on it you fall to your death.
+Would need different paths that were possible.
+
+
+
+
+6. Box pushing puzzle game, have a limited time to move boxes somewhere, pace gradually picks up. If a box is under the chute when a new box comes it's game over. If you're under the chute when a new box comes it's game over. Score based on how many boxes are delivered.
+Can press a button to run in a straight direction to push the boxes faster. If you crash a box into another box like this it destroys both and deducts double the points for them (so if a box is 1, then running one box into another deducts 4).
+Have a counter that shows when the next box is coming.
+Can press a button to shove a box. Moves it but takes a bit longer, though not as long as it would be to walk the same amount.
