@@ -514,14 +514,14 @@ static int gameScreen_Enter( void )
 
 	EntityID arc;
 	arc = createFile( "Arc0", "", FT_ARC, 0 ); // business
-	immediateAddFileToArchive( arc, createFile( "Deliver", "Client deliverable", FT_DB, 2 ) );
+	immediateAddFileToArchive( arc, createFile( "Deliver", "Client deliverable", FT_DB, 3 ) );
 	immediateAddFileToArchive( arc, createFile( "Clients", "IMPORTANT! DO NOT DELETE!", FT_DB, 2 ) );
 	immediateAddFileToArchive( arc, createFile( "TODO", "", FT_TXT, 1 ) );
 	addExistingFileToDrive( arc );
 
 	arc = createFile( "Arc1", "", FT_ARC, 0 ); // catagorizer
 	immediateAddFileToArchive( arc, createFile( "EDM2088", "Research data", FT_DAT, 3 ) );
-	//immediateAddFileToArchive( arc, createFile( "Manual", "How to run the an2.4", FT_TXT, 2 ) );
+	immediateAddFileToArchive( arc, createFile( "Manual", "How to run the an2.4", FT_TXT, 2 ) );
 	immediateAddFileToArchive( arc, createFile( "an2.4", "Analytics program", FT_ELF, 1 ) );
 	immediateAddFileToArchive( arc, createFile( "ml", "Catagorizer v2.4", FT_C, 1 ) );
 	addExistingFileToDrive( arc );
@@ -539,7 +539,7 @@ static int gameScreen_Enter( void )
 	immediateAddFileToArchive( arc, createFile( "Logo", "Official Alon Analytics logo", FT_IMG, 1 ) );
 	immediateAddFileToArchive( arc, createFile( "WebSite", "Layout for the company website", FT_UI, 1 ) );
 	//immediateAddFileToArchive( arc, createFile( "WebBG", "Background image", FT_IMG, 1 ) );
-	//immediateAddFileToArchive( arc, createFile( "Copy", "Website copy text", FT_TXT, 1 ) );
+	immediateAddFileToArchive( arc, createFile( "Copy", "Website copy text", FT_TXT, 1 ) );
 	immediateAddFileToArchive( arc, createFile( "WDA2087", "Website analytics data", FT_DAT, 1 ) );
 	addExistingFileToDrive( arc );
 
@@ -1060,7 +1060,26 @@ static void updateUserRequests( float dt )
 				// add a new file request
 				UserRequest request;
 			
-				request.requestableFileIdx = rand_GetRangeS32( NULL, 0, sb_Count( sbRequestableFiles ) );
+				// we'll want to have more of a chance to select deleted files, anti-cheese tech so you can't just delete
+				//  the biggest files and have the rest sitting there
+				request.requestableFileIdx = sbRequestableFiles[0].fileID;
+				int total = 0;
+				for( size_t f = 0; f < sb_Count( sbRequestableFiles ); ++f ) {
+					int weight = 1;
+					if( !idSet_IsIDValid( &fileIDs, sbRequestableFiles[f].fileID ) ) {
+						weight = 6;
+					}
+
+					while( weight > 0 ) {
+						++total;
+						--weight;
+						if( shouldChoose( total ) ) {
+							request.requestableFileIdx = f;
+						}
+					}
+				}
+
+
 				request.timeRequired = getTimeNeeded( );
 				request.giveUpTime = getGiveUpTime( );
 
